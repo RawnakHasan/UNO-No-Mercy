@@ -32,20 +32,41 @@ export const createFullDeck = (): Card[] => {
   CardColors.forEach((color) => {
     normalNumbers.forEach((value) => {
       const display = `${color} ${value}`;
-      const asset = getImage("normal", color, String(value));
+      const frontFaceImage = getImage("normal", color, String(value));
 
-      Deck.push({ type: "normal", color, value, asset, displayName: display });
-      Deck.push({ type: "normal", color, value, asset, displayName: display });
+      Deck.push({
+        type: "normal",
+        color,
+        value,
+        frontFaceImage,
+        backFaceImage: "/Cards/Back.svg",
+        displayName: display,
+      });
+      Deck.push({
+        type: "normal",
+        color,
+        value,
+        frontFaceImage,
+        backFaceImage: "/Cards/Back.svg",
+        displayName: display,
+      });
     });
   });
 
   // Power card helper
   const addPower = (color: CardColor, power: PowerCardPower, count: number) => {
     const display = `${color} ${formatName(power)}`;
-    const asset = getImage("power", color, power);
+    const frontFaceImage = getImage("power", color, power);
 
     for (let i = 0; i < count; i++) {
-      Deck.push({ type: "power", color, power, asset, displayName: display });
+      Deck.push({
+        type: "power",
+        color,
+        power,
+        frontFaceImage,
+        backFaceImage: "/Cards/Back.svg",
+        displayName: display,
+      });
     }
   };
 
@@ -62,10 +83,16 @@ export const createFullDeck = (): Card[] => {
   // Wild card helper
   const addWild = (wild: WildCardWild, count: number) => {
     const display = formatName(wild);
-    const asset = getImage("wild", null, wild);
+    const frontFaceImage = getImage("wild", null, wild);
 
     for (let i = 0; i < count; i++) {
-      Deck.push({ type: "wild", wild, asset, displayName: display });
+      Deck.push({
+        type: "wild",
+        wild,
+        frontFaceImage,
+        backFaceImage: "/Cards/Back.svg",
+        displayName: display,
+      });
     }
   };
 

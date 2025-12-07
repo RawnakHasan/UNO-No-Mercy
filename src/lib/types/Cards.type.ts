@@ -16,7 +16,8 @@ export type WildCardWild =
 export type NormalCard = {
   type: "normal";
   displayName: string;
-  asset: string;
+  frontFaceImage: string;
+  backFaceImage: "/Cards/Back.svg";
   color: CardColor;
   value: NormalCardNumber;
 };
@@ -24,7 +25,8 @@ export type NormalCard = {
 export type PowerCard = {
   type: "power";
   displayName: string;
-  asset: string;
+  frontFaceImage: string;
+  backFaceImage: "/Cards/Back.svg";
   color: CardColor;
   power: PowerCardPower;
 };
@@ -32,7 +34,8 @@ export type PowerCard = {
 export type WildCard = {
   type: "wild";
   displayName: string;
-  asset: string;
+  frontFaceImage: string;
+  backFaceImage: "/Cards/Back.svg";
   transformedColor?: CardColor;
   wild: WildCardWild;
 };

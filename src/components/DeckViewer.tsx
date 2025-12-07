@@ -1,4 +1,3 @@
-import { createFullDeck, shuffleDeck } from "@/lib/Deck";
 import { useMemo, useState } from "react";
 // shadcn Accordion
 import {
@@ -7,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { createFullDeck, shuffleDeck } from "@/lib/utils/Deck";
 
 const DeckViewer = () => {
   const normalDeck = useMemo(() => createFullDeck(), []);

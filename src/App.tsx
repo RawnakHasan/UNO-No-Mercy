@@ -9,7 +9,7 @@ import {
 const App = () => {
   return (
     <div className="h-screen flex flex-col gap-8 items-center justify-center relative">
-      <div className="absolute space-x-4 top-4 right-4">
+      <div className="absolute space-x-4 top-4 right-4 flex items-center">
         <ThemeToggle />
         <UserButton />
       </div>

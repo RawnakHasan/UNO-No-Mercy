@@ -1,11 +1,19 @@
 import type { Card } from "./Cards.type";
 
+export type Profile = {
+  id: string;
+  username: string;
+  avatar_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Player = {
-  id: string; // This is the player row ID
-  user_id: string; // ⭐ ADD THIS - links to auth.users
-  username: string; // Display name
-  room_id: string; // Add this too for foreign key
-  player_index: number; // Turn order
+  id: string; // Player row ID
+  user_id: string; // Auth user ID
+  profile_id: string; // ⭐ Links to profiles table
+  room_id: string;
+  player_index: number;
   hand: Card[];
   card_count: number;
   is_spectator: boolean;

@@ -14,7 +14,7 @@ const CreateRoom = () => {
         <DocsButton />
         <JoinRoomButton />
       </div>
-      <div className="absolute space-x-4 m-4 top-0 right-4">
+      <div className="absolute space-x-4 m-4 top-0 right-4 flex items-center">
         <ThemeToggle />
         <UserButton />
       </div>

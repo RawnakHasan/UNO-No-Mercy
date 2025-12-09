@@ -6,22 +6,54 @@ import { useEffect, useState } from "react";
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Get initial session and profile
+    const initAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
-      setUsername(session?.user?.user_metadata?.username ?? null);
+
+      if (session?.user) {
+        // Fetch profile from profiles table
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", session.user.id)
+          .single();
+
+        setUsername(profile?.username ?? null);
+        setAvatarUrl(profile?.avatar_url ?? null);
+      }
+
       setLoading(false);
-    });
+    };
+
+    initAuth();
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
-      setUsername(session?.user?.user_metadata?.username ?? null);
+
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", session.user.id)
+          .single();
+
+        setUsername(profile?.username ?? null);
+        setAvatarUrl(profile?.avatar_url ?? null);
+      } else {
+        setUsername(null);
+        setAvatarUrl(null);
+      }
+
       setLoading(false);
     });
 
@@ -32,8 +64,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await supabase.auth.signOut();
   };
 
+  const refreshProfile = async () => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user!.id)
+      .single();
+
+    setAvatarUrl(data.avatar_url);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, username, loading, signOut }}>
+    <AuthContext.Provider
+      value={{ user, username, avatarUrl, loading, signOut, refreshProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );

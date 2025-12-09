@@ -1,14 +1,35 @@
-import { useLocation, Link } from "react-router";
+import { useLocation, Link, Navigate } from "react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
+import { useAuth } from "@/auth/useAuth";
+import { Spinner } from "@/components/ui/spinner";
+import { ThemeToggle } from "@/theme/ThemeToggle";
 
 const CheckEmail = () => {
   const location = useLocation();
   const email = location.state?.email;
+  const { user, loading } = useAuth();
+
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Spinner className="size-8" />
+      </div>
+    );
+  }
+
+  // Redirect if already logged in
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="flex min-h-screen items-center justify-center p-4 relative">
+      <div className="absolute space-x-4 m-4 top-0 right-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">

@@ -1,19 +1,16 @@
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { RouterProvider } from "react-router";
 import "./index.css";
-import App from "./App.tsx";
 import { ThemeProvider } from "@/theme/theme-provider.tsx";
-import { CreateRoom, JoinRoom, Lobby } from "@/pages";
-
-const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  { path: "/create", element: <CreateRoom /> },
-  { path: "/join", element: <JoinRoom /> },
-  { path: "/lobby/:roomCode", element: <Lobby /> },
-]);
+import { router } from "@/router/path.route";
+import { AuthProvider } from "./auth/AuthProvider";
+import { Toaster } from "./components/ui/sonner";
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <Toaster />
+    </AuthProvider>
   </ThemeProvider>
 );

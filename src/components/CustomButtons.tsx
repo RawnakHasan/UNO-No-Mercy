@@ -2,6 +2,12 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowBigRight, FileText, Home, Plus, User2 } from "lucide-react";
 import { useAuth } from "@/auth/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const CreateRoomButton = () => {
   const navigate = useNavigate();
@@ -56,10 +62,24 @@ export const JoinRoomButton = () => {
 };
 
 export const UserButton = () => {
-  const { username } = useAuth();
+  const { username, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/signIn");
+  };
+
   return (
-    <Button className="hover:cursor-pointer hover:scale-105">
-      <User2 /> <p>{username}</p>
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button className="hover:cursor-pointer hover:scale-105">
+          <User2 /> <p>{username}</p>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

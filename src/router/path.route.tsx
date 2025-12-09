@@ -40,12 +40,5 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  {
-    path: "/check-email",
-    element: (
-      <ProtectedRoute>
-        <CheckEmail />
-      </ProtectedRoute>
-    ),
-  },
+  { path: "/check-email", element: <CheckEmail /> },
 ]);

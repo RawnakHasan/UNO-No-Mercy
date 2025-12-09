@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,57 +26,41 @@ import {
 } from "@/components/ui/dialog";
 import UserSettings from "@/auth/UserSettings";
 
-export const CreateRoomButton = () => {
+type NavButtonProps = {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+};
+
+const NavButton = ({ to, icon, label }: NavButtonProps) => {
   const navigate = useNavigate();
+
   return (
     <Button
-      onClick={() => navigate("/create")}
-      className="hover:cursor-pointer hover:scale-105"
+      onClick={() => navigate(to)}
+      className="font-semibold w-full sm:w-auto flex items-center gap-2 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform duration-150 active:shadow-inner hover:cursor-pointer"
     >
-      <Plus />
-      <p>Create A Room</p>
+      {icon}
+      <p>{label}</p>
     </Button>
   );
 };
 
-export const DocsButton = () => {
-  const navigate = useNavigate();
-  return (
-    <Button
-      onClick={() => navigate("/docs")}
-      className="hover:scale-105 hover:cursor-pointer"
-    >
-      <FileText />
-      <p>Docs</p>
-    </Button>
-  );
-};
+export const CreateRoomButton = () => (
+  <NavButton to="/create" icon={<Plus />} label="Create A Room" />
+);
 
-export const HomeButton = () => {
-  const navigate = useNavigate();
-  return (
-    <Button
-      onClick={() => navigate("/")}
-      className="hover:scale-105 hover:cursor-pointer"
-    >
-      <Home />
-      <p>Home</p>
-    </Button>
-  );
-};
+export const JoinRoomButton = () => (
+  <NavButton to="/join" icon={<ArrowBigRight />} label="Join A Room" />
+);
 
-export const JoinRoomButton = () => {
-  const navigate = useNavigate();
-  return (
-    <Button
-      onClick={() => navigate("/join")}
-      className="hover:cursor-pointer hover:scale-105"
-    >
-      <ArrowBigRight />
-      <p>Join A Room</p>
-    </Button>
-  );
-};
+export const DocsButton = () => (
+  <NavButton to="/docs" icon={<FileText />} label="Docs" />
+);
+
+export const HomeButton = () => (
+  <NavButton to="/" icon={<Home />} label="Home" />
+);
 
 export const UserButton = () => {
   const { username, signOut, avatarUrl } = useAuth();

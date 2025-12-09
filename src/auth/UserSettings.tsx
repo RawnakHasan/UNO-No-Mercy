@@ -113,8 +113,12 @@ const UserSettings = () => {
             accept="image/*"
             onChange={handleFileChange}
           />
-          <Button onClick={handleUpload} disabled={!file}>
-            <Upload className="mr-2" />
+          <Button
+            className="hover:cursor-pointer hover:scale-105"
+            onClick={handleUpload}
+            disabled={!file}
+          >
+            <Upload />
             Upload Avatar
           </Button>
         </div>
@@ -122,7 +126,11 @@ const UserSettings = () => {
 
       <Separator />
 
-      <Button onClick={handleSignOut} variant="destructive">
+      <Button
+        onClick={handleSignOut}
+        variant="destructive"
+        className="hover:cursor-pointer hover:scale-105"
+      >
         <LogOut />
         Sign Out
       </Button>

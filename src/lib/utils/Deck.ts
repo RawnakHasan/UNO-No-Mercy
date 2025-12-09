@@ -4,7 +4,7 @@ import {
   type NormalCardNumber,
   type PowerCardPower,
   type WildCardWild,
-} from "./types/Cards.type";
+} from "../types/Cards.type";
 
 export const CardColors: CardColor[] = ["Red", "Blue", "Green", "Yellow"];
 

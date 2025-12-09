@@ -26,7 +26,7 @@ const CheckEmail = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 relative">
+    <div className="app-gradient flex min-h-screen items-center justify-center p-4 relative">
       <div className="absolute space-x-4 m-4 top-0 right-4">
         <ThemeToggle />
       </div>

@@ -118,3 +118,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.app-gradient {
+  @apply bg-linear-135 dark:from-zinc-700 dark:to-zinc-950 from-zinc-300 to-zinc-400;
+}

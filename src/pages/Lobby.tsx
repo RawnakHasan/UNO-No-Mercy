@@ -1,4 +1,8 @@
 const Lobby = () => {
-  return <div>Lobby</div>;
+  return (
+    <div className="app-gradient h-screen flex items-center justify-center">
+      Lobby
+    </div>
+  );
 };
 export default Lobby;
